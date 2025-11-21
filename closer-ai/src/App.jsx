@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { 
   Menu, X, Clock, AlertTriangle, Coins, CheckCircle, 
   XCircle, Zap, Brain, FileText, Shield, Check, Star,
@@ -15,6 +15,7 @@ import {
   useSpring, 
   useMotionTemplate, 
   useMotionValue,
+  useMotionValueEvent,
   AnimatePresence,
   useInView
 } from 'framer-motion';
@@ -28,10 +29,9 @@ const cn = (...classes) => classes.filter(Boolean).join(' ');
 // ==============================================
 // ⚙️ CONFIGURATION EMAILJS
 // ==============================================
-// Remplace ces valeurs par celles de ton tableau de bord EmailJS :
-const SERVICE_ID = "service_546d5z8";   // Ex: "service_x9s8..."
-const TEMPLATE_ID = "template_urdu0q5"; // Ex: "template_8d7..."
-const PUBLIC_KEY = "o4vPeDYAPGrizUxdL";   // Ex: "user_Kjs8..."
+const SERVICE_ID = "service_546d5z8";   
+const TEMPLATE_ID = "template_urdu0q5"; 
+const PUBLIC_KEY = "o4vPeDYAPGrizUxdL";   
 
 // Smooth Scroll Utility
 const scrollToSectionId = (sectionId, e) => {
@@ -46,10 +46,11 @@ const scrollToSectionId = (sectionId, e) => {
 };
 
 // ==============================================
-// 🧩 SHARED UI COMPONENTS (Existing)
+// 🧩 SHARED UI COMPONENTS (Optimized)
 // ==============================================
 
-function SpotlightCard({ children, className = "", spotlightColor = "rgba(99, 102, 241, 0.2)", noHover = false }) {
+// OPTIMIZATION: React.memo prevents re-renders if props don't change
+const SpotlightCard = memo(({ children, className = "", spotlightColor = "rgba(99, 102, 241, 0.2)", noHover = false }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -63,7 +64,7 @@ function SpotlightCard({ children, className = "", spotlightColor = "rgba(99, 10
     <motion.div
       onMouseMove={handleMouseMove}
       className={cn(
-        "group relative border border-white/[0.08] bg-[#0B101B]/80 backdrop-blur-sm overflow-hidden rounded-[2rem]",
+        "group relative border border-white/[0.08] bg-[#0B101B]/80 backdrop-blur-sm overflow-hidden rounded-[2rem] transform-gpu", // Added transform-gpu
         "shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_20px_-12px_rgba(0,0,0,0.5)]",
         className
       )}
@@ -72,7 +73,7 @@ function SpotlightCard({ children, className = "", spotlightColor = "rgba(99, 10
     >
       <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0 pointer-events-none mix-blend-overlay" />
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-500 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition duration-500 group-hover:opacity-100 z-10 will-change-transform" // Added will-change
         style={{
           background: useMotionTemplate`
             radial-gradient(600px circle at ${mouseX}px ${mouseY}px, ${spotlightColor}, transparent 40%)
@@ -83,9 +84,9 @@ function SpotlightCard({ children, className = "", spotlightColor = "rgba(99, 10
       <div className="relative z-20 h-full">{children}</div>
     </motion.div>
   );
-}
+});
 
-const PrimaryButton = ({ children, href, icon: Icon }) => {
+const PrimaryButton = memo(({ children, href, icon: Icon }) => {
   const isInternalLink = href && href.startsWith('#');
   return (
   <motion.a
@@ -98,7 +99,7 @@ const PrimaryButton = ({ children, href, icon: Icon }) => {
       } : undefined}
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
-      className="relative group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl overflow-hidden shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.5)]"
+      className="relative group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl overflow-hidden shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.5)] transform-gpu"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_auto] animate-background-shine" />
       <span className="relative flex items-center gap-2 z-10 text-sm uppercase tracking-wide">
@@ -106,9 +107,9 @@ const PrimaryButton = ({ children, href, icon: Icon }) => {
       </span>
   </motion.a>
 );
-};
+});
 
-const SectionTitle = ({ title, subtitle, align = "center", eyebrow }) => {
+const SectionTitle = memo(({ title, subtitle, align = "center", eyebrow }) => {
   return (
     <div className={cn("mb-24 relative z-10", align === "center" ? "text-center mx-auto" : "text-left")}>
       <motion.div
@@ -138,9 +139,9 @@ const SectionTitle = ({ title, subtitle, align = "center", eyebrow }) => {
       </motion.div>
     </div>
   );
-};
+});
 
-const AnimatedCounter = ({ value }) => {
+const AnimatedCounter = memo(({ value }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const spring = useSpring(0, { stiffness: 50, damping: 20, duration: 3000 });
@@ -151,7 +152,7 @@ const AnimatedCounter = ({ value }) => {
   }, [isInView, value, spring]);
 
   return <motion.span ref={ref}>{display}</motion.span>;
-};
+});
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -165,17 +166,17 @@ const itemVariants = {
   hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
   visible: { 
     opacity: 1, 
-    y: 0,
+    y: 0, 
     filter: "blur(0px)",
     transition: { type: "spring", stiffness: 70, damping: 20 }
   }
 };
 
 // ==============================================
-// 📄 LEGAL COMPONENTS (NEW)
+// 📄 LEGAL COMPONENTS
 // ==============================================
 
-const LegalSection = ({ title, icon: Icon, children }) => (
+const LegalSection = memo(({ title, icon: Icon, children }) => (
   <motion.div variants={itemVariants} className="mb-10">
     <div className="flex items-center gap-3 mb-4 group">
       <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-indigo-400 group-hover:border-indigo-500/50 transition-colors">
@@ -187,7 +188,7 @@ const LegalSection = ({ title, icon: Icon, children }) => (
       {children}
     </div>
   </motion.div>
-);
+));
 
 const LegalSeparator = () => (
   <motion.div 
@@ -196,13 +197,13 @@ const LegalSeparator = () => (
   />
 );
 
-const MentionsLegales = ({ onBack }) => {
+const MentionsLegales = memo(({ onBack }) => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <section className="min-h-screen pt-32 pb-20 relative overflow-hidden">
-       {/* Background Ambiance */}
-      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none" />
+       {/* Background Ambiance with Hardware Acceleration */}
+      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
 
       <div className="max-w-[1280px] mx-auto px-6 relative z-10">
         {/* Navigation */}
@@ -301,7 +302,7 @@ const MentionsLegales = ({ onBack }) => {
                 <li className="flex gap-3">
                   <span className="text-indigo-400 shrink-0 mt-1">●</span>
                   <div>
-                     En cas de litige, vous disposez du droit d'introduire une réclamation auprès de la <strong className="text-white">CNIL</strong>.
+                      En cas de litige, vous disposez du droit d'introduire une réclamation auprès de la <strong className="text-white">CNIL</strong>.
                   </div>
                 </li>
               </ul>
@@ -334,15 +335,15 @@ const MentionsLegales = ({ onBack }) => {
       </div>
     </section>
   );
-};
+});
 
-const CGV = ({ onBack }) => {
+const CGV = memo(({ onBack }) => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <section className="min-h-screen pt-32 pb-20 relative overflow-hidden">
       {/* Background Ambiance */}
-      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
 
       <div className="max-w-[1280px] mx-auto px-6 relative z-10">
         {/* Navigation & Header */}
@@ -356,7 +357,7 @@ const CGV = ({ onBack }) => {
             </div>
             Retour à l'accueil
               </button>
-          
+           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -529,27 +530,22 @@ const CGV = ({ onBack }) => {
       </div>
     </section>
   );
-};
+});
 
 // ==============================================
-// 🧱 LANDING SECTIONS (Existing)
+// 🧱 LANDING SECTIONS (Optimized)
 // ==============================================
-// Note: I'm keeping your existing sections compacted here for brevity in the Paste.
-// The Hero, Features, WhyUs, Comparison, Pricing, FAQ, BookingWidget components 
-// should remain exactly as they were in your provided code.
 
-// ... (Assuming Hero, Features, WhyUs, Comparison, Pricing, FAQ, BookingWidget are defined here as per your code) ...
-// RE-INSERTING THEM FOR COMPLETENESS so you can copy-paste the whole file.
-
-const Hero = () => {
+const Hero = memo(() => {
   const { scrollY } = useScroll();
+  // Optimisation: Transform GPU
   const y1 = useTransform(scrollY, [0, 1000], [0, 200]); 
   const opacity = useTransform(scrollY, [0, 600], [1, 0]);
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
-      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-600/10 opacity-40 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-0 w-[50vw] h-[60vh] bg-purple-900/10 opacity-30 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80vw] h-[80vh] bg-indigo-600/10 opacity-40 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
+      <div className="absolute bottom-[-20%] right-0 w-[50vw] h-[60vh] bg-purple-900/10 opacity-30 blur-[100px] rounded-full pointer-events-none hardware-accelerated" />
       
       <div className="max-w-[1280px] mx-auto px-6 sm:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -607,7 +603,7 @@ const Hero = () => {
                   {[1,2,3].map(i => (
                    <div key={i} className="w-10 h-10 rounded-full border-2 border-[#020408] bg-slate-800 relative overflow-hidden">
                       <img src={`https://i.pravatar.cc/150?img=${i*10 + 5}`} alt="User" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all" />
-                    </div>
+                   </div>
                   ))}
                </div>
                <div className="text-sm text-slate-400">
@@ -621,9 +617,9 @@ const Hero = () => {
 
           <motion.div 
             style={{ y: y1, opacity, perspective: 2000 }} 
-            className="relative hidden lg:block w-full h-[600px]"
+            className="relative hidden lg:block w-full h-[600px] will-change-transform" // Added will-change
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-500/20 blur-[100px] opacity-50 -z-10" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-500/20 blur-[100px] opacity-50 -z-10 hardware-accelerated" />
 
             <motion.div 
               initial={{ rotateY: -12, rotateX: 5, opacity: 0, scale: 0.9 }}
@@ -638,7 +634,7 @@ const Hero = () => {
                   ease: "easeInOut" 
                 }
               }}
-              className="absolute inset-0 z-10"
+              className="absolute inset-0 z-10 transform-gpu" // Added transform-gpu
             >
               <div className="relative w-full h-full bg-[#0A0F1C] rounded-[2rem] shadow-2xl shadow-indigo-900/40 overflow-hidden group border border-white/10">
                   <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.5)] rounded-[2rem] pointer-events-none z-30" />
@@ -709,9 +705,9 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
-const Features = () => {
+const Features = memo(() => {
   const items = [
     { icon: Clock, color: "text-blue-400", bg: "bg-blue-500/10", title: "Chronophage", desc: "Vos soirées et weekends perdus à copier-coller des textes au lieu de piloter vos chantiers." },
     { icon: AlertTriangle, color: "text-amber-400", bg: "bg-amber-500/10", title: "Risque d'erreur", desc: "Un nom de client oublié, une certification périmée, et le contrat est perdu bêtement." },
@@ -749,9 +745,9 @@ const Features = () => {
       </div>
     </section>
   );
-};
+});
 
-const WhyUs = () => {
+const WhyUs = memo(() => {
   const items = [
     { 
       icon: BrainCircuit, 
@@ -807,9 +803,9 @@ const WhyUs = () => {
       </div>
     </section>
   );
-};
+});
 
-const Comparison = () => {
+const Comparison = memo(() => {
   return (
     <section id="process" className="py-40 relative overflow-hidden bg-[#020408]">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -890,13 +886,13 @@ const Comparison = () => {
       </div>
     </section>
   );
-};
+});
 
-const Pricing = () => {
+const Pricing = memo(() => {
   return (
     <section id="pricing" className="relative py-40 overflow-hidden bg-[#020408]">
       {/* Background Lighting */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-900/20 blur-[150px] rounded-full pointer-events-none opacity-40" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-900/20 blur-[150px] rounded-full pointer-events-none opacity-40 hardware-accelerated" />
 
       <div className="max-w-[1280px] mx-auto px-6 relative z-10">
         <SectionTitle 
@@ -908,7 +904,7 @@ const Pricing = () => {
         <div className="grid lg:grid-cols-3 gap-6 max-w-6xl mx-auto items-center">
           
           {/* --- CARD 1 (Basic) --- */}
-        <motion.div 
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -930,14 +926,14 @@ const Pricing = () => {
           >
             <SpotlightCard className="p-10 !bg-[#0E131F] border-indigo-500/40 relative flex flex-col items-center text-center shadow-2xl shadow-black/50 overflow-hidden">
               
-              {/* 1. Badge "Glowing Chip" - Plus fin, plus lumineux */}
+              {/* 1. Badge "Glowing Chip" */}
               <div className="mb-8">
                 <span className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/50 text-indigo-300 text-[10px] font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(99,102,241,0.3)]">
                   <Sparkles size={10} className="mr-2" /> Recommandé
                 </span>
               </div>
 
-              {/* 2. Hierarchy Typographique - Prix Hero */}
+              {/* 2. Hierarchy Typographique */}
               <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Pack Fondateur</h3>
               <div className="flex items-baseline justify-center gap-2 mb-8 relative">
                 <span className="text-7xl font-black text-white tracking-tighter drop-shadow-2xl">997€</span>
@@ -947,7 +943,7 @@ const Pricing = () => {
                 </div>
               </div>
               
-              {/* 3. Zone Garantie - Plus lumineuse (Emerald) */}
+              {/* 3. Zone Garantie */}
               <div className="w-full mb-10 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center gap-3 shadow-[0_0_15px_rgba(16,185,129,0.05)]">
                   <ShieldCheck size={18} className="text-emerald-400" />
                   <span className="text-emerald-400 text-[10px] font-bold uppercase tracking-wide">Garantie Satisfait ou Remboursé</span>
@@ -956,12 +952,12 @@ const Pricing = () => {
               {/* CTA */}
               <div className="w-full mb-10">
                 <PrimaryButton href="https://buy.stripe.com/3cI14pgHX9Uxd0q13k6g800" icon={Lock}>
-                Sécuriser ma place
-              </PrimaryButton>
+                    Sécuriser ma place
+                </PrimaryButton>
                 <p className="text-[10px] text-slate-500 mt-3 font-medium">Facture avec TVA disponible immédiatement</p>
               </div>
 
-              {/* 4. Liste Avantages - Coches blanches sur fond Indigo */}
+              {/* 4. Liste Avantages */}
               <div className="border-t border-white/10 pt-8 w-full space-y-5 text-left">
                 {[
                   "Configuration sur-mesure par l'équipe",
@@ -999,9 +995,9 @@ const Pricing = () => {
       </div>
     </section>
   );
-};
+});
 
-const FAQ = () => {
+const FAQ = memo(() => {
   const [activeIndex, setActiveIndex] = useState(null);
   const questions = [
     { question: "Mes données techniques (fichiers Word, prix) sont-elles en sécurité ?", answer: "Absolument. La sécurité est notre priorité n°1. Vos données sont stockées dans des silos isolés et chiffrés. Elles ne sont JAMAIS utilisées pour entraîner des modèles publics ou accessibles par d'autres clients." },
@@ -1017,9 +1013,9 @@ const FAQ = () => {
         <SectionTitle eyebrow="QUESTIONS FRÉQUENTES" title="Vos doutes, nos réponses." subtitle="Tout ce que vous devez savoir avant de sécuriser votre place." />
         <div className="max-w-3xl mx-auto grid gap-4">
           {questions.map((q, i) => (
-  <motion.div 
+            <motion.div 
               key={i}
-    initial={{ opacity: 0, y: 20 }} 
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
@@ -1050,8 +1046,8 @@ const FAQ = () => {
                   >
                     <div className="px-6 pb-6 text-slate-400 leading-relaxed text-sm font-medium">
                       {q.answer}
-    </div>
-  </motion.div>
+                    </div>
+                  </motion.div>
                 )}
               </AnimatePresence>
             </motion.div>
@@ -1060,9 +1056,9 @@ const FAQ = () => {
       </div>
     </section>
   );
-};
+});
 
-const BookingWidget = () => {
+const BookingWidget = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
 
@@ -1113,7 +1109,39 @@ const BookingWidget = () => {
       )}
     </AnimatePresence>
   );
-};
+});
+
+const Footer = memo(({ setView }) => (
+  <footer className="border-t border-white/5 bg-[#020408] pt-20 pb-10 relative z-10">
+    <div className="max-w-[1280px] mx-auto px-6">
+      <div className="grid md:grid-cols-2 gap-12 mb-16">
+        <div>
+          <button onClick={() => setView('home')} className="flex items-center gap-2 mb-6 group">
+            <div className="p-1.5 bg-white/5 rounded-lg border border-white/5 group-hover:border-indigo-500/50 transition-colors">
+               <Sparkles className="text-indigo-400 w-5 h-5" />
+            </div>
+            <span className="text-xl font-bold text-white">CloserAI</span>
+          </button>
+          <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
+            L'intelligence artificielle dédiée aux experts du BTP et de la Sécurité pour gagner plus d'appels d'offres.
+          </p>
+        </div>
+        <div className="md:text-right">
+          <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Contact</h4>
+          <a href="mailto:contactcloserai@gmail.com" className="text-slate-400 hover:text-indigo-400 transition-colors block mb-2 text-sm">contactcloserai@gmail.com</a>
+          <p className="text-slate-600 text-xs">Paris, France</p>
+        </div>
+      </div>
+      <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600 font-medium">
+        <p>&copy; 2025 CloserAI. Tous droits réservés.</p>
+        <div className="flex gap-6">
+          <button onClick={() => setView('mentions')} className="hover:text-white transition-colors">Mentions légales</button>
+          <button onClick={() => setView('cgv')} className="hover:text-white transition-colors">CGV</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+));
 
 // ==============================================
 // 🧲 HOOKS & UTILS
@@ -1171,12 +1199,14 @@ const Navbar = ({ setView }) => {
   // Connect ScrollSpy
   const activeSection = useActiveSection(navLinks.map(link => link.id));
 
-  // Scroll Listener for container styles
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // OPTIMIZATION: useMotionValueEvent prevents heavy scroll listener
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const shouldBeScrolled = latest > 50;
+    if (isScrolled !== shouldBeScrolled) {
+      setIsScrolled(shouldBeScrolled);
+    }
+  });
 
   const scrollToSection = (sectionId, e) => {
     e.preventDefault();
@@ -1208,7 +1238,7 @@ const Navbar = ({ setView }) => {
       >
         <div 
           className={cn(
-            "pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] flex items-center justify-between",
+            "pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] flex items-center justify-between transform-gpu",
             isScrolled 
               ? "mt-6 w-[90%] max-w-4xl rounded-full bg-[#0B101B]/70 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 py-3 px-6" 
               : "mt-0 w-full max-w-[1280px] bg-transparent border-transparent py-6 px-6 sm:px-8"
@@ -1265,7 +1295,7 @@ const Navbar = ({ setView }) => {
                       {showPill && (
                         <motion.div
                           layoutId="navbar-pill"
-                          className="absolute inset-0 bg-white/10 rounded-full z-0"
+                          className="absolute inset-0 bg-white/10 rounded-full z-0 will-change-transform"
                           transition={{ 
                             type: "spring", 
                             stiffness: 350, 
@@ -1386,42 +1416,6 @@ const Navbar = ({ setView }) => {
   );
 };
 
-const Footer = ({ setView }) => (
-  <footer className="border-t border-white/5 bg-[#020408] pt-20 pb-10 relative z-10">
-    <div className="max-w-[1280px] mx-auto px-6">
-      <div className="grid md:grid-cols-2 gap-12 mb-16">
-        <div>
-          <button onClick={() => setView('home')} className="flex items-center gap-2 mb-6 group">
-            <div className="p-1.5 bg-white/5 rounded-lg border border-white/5 group-hover:border-indigo-500/50 transition-colors">
-               <Sparkles className="text-indigo-400 w-5 h-5" />
-            </div>
-            <span className="text-xl font-bold text-white">CloserAI</span>
-          </button>
-          <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
-            L'intelligence artificielle dédiée aux experts du BTP et de la Sécurité pour gagner plus d'appels d'offres.
-          </p>
-        </div>
-        <div className="md:text-right">
-          <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Contact</h4>
-          <a href="mailto:contactcloserai@gmail.com" className="text-slate-400 hover:text-indigo-400 transition-colors block mb-2 text-sm">contactcloserai@gmail.com</a>
-          <p className="text-slate-600 text-xs">Paris, France</p>
-        </div>
-      </div>
-      <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600 font-medium">
-        <p>&copy; 2025 CloserAI. Tous droits réservés.</p>
-        <div className="flex gap-6">
-          <button onClick={() => setView('mentions')} className="hover:text-white transition-colors">Mentions légales</button>
-          <button onClick={() => setView('cgv')} className="hover:text-white transition-colors">CGV</button>
-        </div>
-      </div>
-    </div>
-  </footer>
-);
-
-// ==============================================
-// 📅 DEMO BOOKING VIEW (NEW)
-// ==============================================
-
 // ==============================================
 // 📅 DEMO BOOKING VIEW (REFACTORED)
 // ==============================================
@@ -1474,7 +1468,7 @@ const DemoView = ({ onBack }) => {
     return (
       <section className="min-h-screen pt-32 pb-20 flex flex-col items-center justify-center relative overflow-hidden">
          {/* Background Ambiance */}
-        <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vh] bg-indigo-600/10 opacity-30 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vh] bg-indigo-600/10 opacity-30 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
         
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
@@ -1503,8 +1497,8 @@ const DemoView = ({ onBack }) => {
   return (
     <section className="min-h-screen pt-32 pb-20 relative overflow-hidden flex flex-col items-center justify-center">
       {/* Backgrounds */}
-      <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vh] bg-indigo-600/10 opacity-30 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vh] bg-purple-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vh] bg-indigo-600/10 opacity-30 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vh] bg-purple-900/10 opacity-20 blur-[120px] rounded-full pointer-events-none hardware-accelerated" />
 
       <div className="max-w-[1280px] w-full mx-auto px-6 relative z-10">
         
@@ -1534,7 +1528,7 @@ const DemoView = ({ onBack }) => {
                   <span className="text-indigo-400 text-[10px] font-bold uppercase tracking-[0.3em]">PASSEZ À L'ACTION</span>
                </div>
                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-                 Prêt à bénéficier d'une <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-white">démonstration gratuite ?</span>
+                 Prêt à bénéficier d’une <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-white">démonstration gratuite ?</span>
                </h1>
                <p className="text-slate-400 text-lg leading-relaxed">
                  Remplissez ce formulaire pour recevoir votre audit personnalisé.
@@ -1671,6 +1665,13 @@ export default function App() {
           to { background-position: -200% 0; }
         }
         .animate-background-shine { animation: background-shine 3s linear infinite; }
+
+        /* OPTIMIZATION: Hardware Acceleration Class */
+        .hardware-accelerated {
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          perspective: 1000px;
+        }
       `}</style>
 
       <Navbar setView={setCurrentView} />
