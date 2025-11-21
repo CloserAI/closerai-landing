@@ -1058,7 +1058,7 @@ const FAQ = memo(() => {
   );
 });
 
-const BookingWidget = memo(() => {
+const BookingWidget = memo(({ setView }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
 
@@ -1101,9 +1101,15 @@ const BookingWidget = memo(() => {
             <div className="w-full bg-slate-800/50 rounded-full h-1 mb-5 overflow-hidden">
               <div className="bg-indigo-500 h-full w-[85%] shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
             </div>
-            <a href="https://calendly.com/julien-pernot74/30min" target="_blank" className="block w-full py-3 bg-white text-slate-950 hover:bg-indigo-50 text-center rounded-xl font-bold text-xs uppercase tracking-wider transition-colors shadow-lg">
+            <button 
+              onClick={() => {
+                setIsClosed(true);
+                setView('demo');
+              }}
+              className="block w-full py-3 bg-white text-slate-950 hover:bg-indigo-50 text-center rounded-xl font-bold text-xs uppercase tracking-wider transition-colors shadow-lg"
+            >
               Réserver mon audit
-            </a>
+            </button>
           </div>
         </motion.div>
       )}
@@ -1685,7 +1691,7 @@ export default function App() {
             <WhyUs />
             <Pricing />
             <FAQ />
-            <BookingWidget />
+            <BookingWidget setView={setCurrentView} />
           </>
         )}
         {currentView === 'mentions' && (
