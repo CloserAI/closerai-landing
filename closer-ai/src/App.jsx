@@ -255,8 +255,8 @@ const MentionsLegales = memo(({ onBack }) => {
 
             {/* 2. Hébergement */}
             <LegalSection title="Hébergement" icon={Server}>
-              <p><strong className="text-white">Hébergeur :</strong> Netlify Inc.</p>
-              <p>2325 3rd Street, Suite 215, San Francisco, California 94107, États-Unis.</p>
+              <p><strong className="text-white">Hébergeur :</strong> Vercel Inc.</p>
+              <p>340 S Lemon Ave #4133, Walnut, California 91789, États-Unis.</p>
             </LegalSection>
 
             <LegalSeparator />
