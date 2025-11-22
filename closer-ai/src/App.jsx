@@ -566,7 +566,7 @@ const Hero = memo(() => {
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-[-0.04em] leading-[0.95] mb-10">
-              <div className="overflow-hidden py-1"><motion.span className="block" variants={itemVariants}>Ne rédigez plus</motion.span></div>
+              <div className="overflow-hidden py-1"><motion.span className="block" variants={itemVariants}>Ne rédigez plus vos</motion.span></div>
               <div className="overflow-hidden py-1">
                   <motion.span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-indigo-400 pb-2" variants={itemVariants}>
                       Mémoires Techniques
