@@ -102,6 +102,7 @@ const translations = {
       subtitleHighlight: "60% de la note finale",
       traditional: {
         label: 'Méthode Traditionnelle',
+        codeLabel: 'METHODE_TRADITIONNELLE',
         score: '52/60',
         items: [
           'Copier-coller générique visible',
@@ -164,7 +165,7 @@ const translations = {
       items: [
         {
           q: "Comment fonctionne la garantie satisfait ou remboursé ?",
-          a: "Si le premier dossier généré ne vous convient pas, nous vous remboursons intégralement sans poser de question."
+          a: "Pour l'offre \"Pack Fondateur\", si le premier mémoire généré ne répond pas à vos attentes, nous vous remboursons intégralement."
         },
         {
           q: "Comment l'IA apprend-elle mon style d'écriture ?",
@@ -177,10 +178,6 @@ const translations = {
         {
           q: "Puis-je modifier le texte généré avant export ?",
           a: "Oui, l'interface vous permet de relire et ajuster chaque paragraphe avant de télécharger le .docx final. L'IA génère une base solide, vous gardez le contrôle créatif."
-        },
-        {
-          q: "Combien de temps prend la génération d'un mémoire ?",
-          a: "Entre 5 et 15 minutes selon la complexité du CCTP. Vous uploadez le cahier des charges, précisez les lots concernés, et l'IA produit un document structuré prêt à être finalisé."
         }
       ]
     },
@@ -317,6 +314,7 @@ const translations = {
       subtitleHighlight: "60% of the final score",
       traditional: {
         label: 'Traditional Method',
+        codeLabel: 'TRADITIONAL_METHOD',
         score: '52/60',
         items: [
           'Visible generic copy-paste',
@@ -392,10 +390,6 @@ const translations = {
         {
           q: "Can I edit the generated text before export?",
           a: "Yes, the interface allows you to review and adjust each paragraph before downloading the final .docx. The AI generates a solid foundation, you keep creative control."
-        },
-        {
-          q: "How long does it take to generate a proposal?",
-          a: "Between 5 and 15 minutes depending on the complexity of the specifications. You upload the requirements, specify the concerned lots, and the AI produces a structured document ready to be finalized."
         }
       ]
     },
@@ -1135,13 +1129,13 @@ const Hero = memo(() => {
                             
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center gap-2 text-indigo-300 text-xs font-bold uppercase tracking-widest">
-                                  <Sparkles size={12} /> Génération
+                                  <Sparkles size={12} /> {t('hero.demo.generation')}
                                 </div>
                               <div className="bg-indigo-500/20 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-500/20">Word .docx</div>
                             </div>
                             
                           <div className="space-y-2 text-sm text-slate-200 leading-relaxed font-medium font-serif">
-                              <p>"Concernant le lot n°2 (Gros Œuvre), notre méthodologie privilégie l'approche bas carbone..."</p>
+                              <p>{t('hero.demo.sampleText')}</p>
                                 <motion.span 
                                     animate={{ opacity: [0, 1, 0] }}
                                     transition={{ duration: 0.8, repeat: Infinity }}
@@ -1151,10 +1145,10 @@ const Hero = memo(() => {
 
                           <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-3">
                               <div className="flex items-center gap-1.5 text-emerald-400 text-[10px] font-bold bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
-                                <CheckCircle size={12} /> CCTP respecté
+                                <CheckCircle size={12} /> {t('hero.demo.cctp')}
                               </div>
                               <div className="flex items-center gap-1.5 text-indigo-400 text-[10px] font-bold bg-indigo-500/10 px-2 py-1 rounded border border-indigo-500/20">
-                                <BrainCircuit size={12} /> Style expert
+                                <BrainCircuit size={12} /> {t('hero.demo.style')}
                               </div>
                             </div>
                         </motion.div>
@@ -1299,7 +1293,7 @@ const Comparison = memo(() => {
             viewport={{ once: true }}
             className="p-8 rounded-[2rem] border border-dashed border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors relative group"
           >
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500 text-xs font-mono">METHODE_TRADITIONNELLE</div>
+            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-slate-500 text-xs font-mono">{t('comparison.traditional.codeLabel')}</div>
             <div className="flex items-center gap-4 mb-8 text-slate-500">
               <div className="p-2 bg-slate-800 rounded-lg"><FileText size={20} /></div>
               <span className="font-bold uppercase tracking-widest text-xs text-slate-400">{t('comparison.traditional.label')}</span>
