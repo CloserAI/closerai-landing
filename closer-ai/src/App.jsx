@@ -78,7 +78,7 @@ const translations = {
     whyUs: {
       eyebrow: 'NOTRE DIFFÉRENCE',
       title: 'Votre expert technique virtuel.',
-      subtitle: 'Contrairement à ChatGPT générique, CloserAi connaît votre entreprise par cœur.',
+      subtitle: 'Contrairement à ChatGPT générique, CloserAI connaît votre entreprise par cœur.',
       items: {
         training: {
           title: 'Entraînement Sur-Mesure',
@@ -110,7 +110,7 @@ const translations = {
         ]
       },
       closer: {
-        label: 'Avec CloserAi',
+        label: 'Avec CloserAI',
         score: '58',
         optimized: 'Optimisé IA',
         items: [
@@ -160,8 +160,12 @@ const translations = {
     faq: {
       eyebrow: 'FAQ',
       title: 'Questions fréquentes',
-      subtitle: 'Tout ce que vous devez savoir sur CloserAi',
+      subtitle: 'Tout ce que vous devez savoir sur CloserAI',
       items: [
+        {
+          q: "Comment fonctionne la garantie satisfait ou remboursé ?",
+          a: "Si le premier dossier généré ne vous convient pas, nous vous remboursons intégralement sans poser de question."
+        },
         {
           q: "Comment l'IA apprend-elle mon style d'écriture ?",
           a: "Vous nous transmettez 10 à 20 mémoires techniques rédigés par vos experts. Notre modèle analyse votre vocabulaire, vos tournures de phrases, et la structure de vos réponses pour reproduire fidèlement votre ton professionnel."
@@ -177,30 +181,53 @@ const translations = {
         {
           q: "Combien de temps prend la génération d'un mémoire ?",
           a: "Entre 5 et 15 minutes selon la complexité du CCTP. Vous uploadez le cahier des charges, précisez les lots concernés, et l'IA produit un document structuré prêt à être finalisé."
-        },
-        {
-          q: "L'offre Fondateur est-elle vraiment à vie ?",
-          a: "Oui, paiement unique de 997€ = accès permanent. Aucun abonnement mensuel. Toutes les mises à jour futures incluses."
         }
       ]
     },
     // Booking
     booking: {
       eyebrow: 'RÉSERVER UNE DÉMO',
-      title: 'Découvrez CloserAi en action',
+      title: 'Découvrez CloserAI en action',
       subtitle: 'Prenez rendez-vous pour une démonstration personnalisée de 30 minutes.',
+      back: 'Retour',
+      backToHome: "Retour à l'accueil",
+      action: "PASSEZ À L'ACTION",
+      titlePart1: "Prêt à bénéficier d’une",
+      titlePart2: "démonstration gratuite ?",
+      subtitle2: "Remplissez ce formulaire pour recevoir votre audit personnalisé.",
+      features: {
+        audit: "Audit gratuit de vos mémoires actuels",
+        demo: "Démonstration live sur vos données",
+        access: "Accès prioritaire au programme"
+      },
       form: {
         name: 'Nom complet',
+        firstname: 'Prénom',
+        firstnamePlaceholder: 'Votre prénom',
+        lastname: 'Nom',
+        lastnamePlaceholder: 'Votre nom',
         email: 'Email professionnel',
-        company: 'Entreprise',
+        emailPlaceholder: 'votre@email.com',
+        company: 'Société',
+        companyPlaceholder: 'Nom de votre société',
+        size: "Taille d'entreprise",
+        sizeOptions: {
+          small: "1-10 employés",
+          medium: "11-50 employés",
+          large: "+50 employés"
+        },
         phone: 'Téléphone',
+        phonePlaceholder: '0612345678',
         message: 'Parlez-nous de vos besoins',
+        messageLabel: 'Message (Optionnel)',
+        messagePlaceholder: 'Parlez-nous de vos besoins actuels...',
         submit: 'Réserver ma démo',
-        sending: 'Envoi...',
+        submitButton: 'Envoyer la demande',
+        sending: 'Envoi en cours...',
         success: 'Demande envoyée !',
-        successMessage: 'Nous vous recontactons sous 24h pour fixer un créneau.',
+        successMessage: 'Merci ! Notre équipe a bien reçu votre demande. Nous revenons vers vous sous 24h pour planifier votre démo.',
         error: 'Erreur d\'envoi',
-        errorMessage: 'Une erreur est survenue. Réessayez ou contactez-nous directement.'
+        errorMessage: 'Une erreur est survenue. Vérifiez votre connexion ou réessayez plus tard.'
       }
     },
     // Footer
@@ -266,7 +293,7 @@ const translations = {
     whyUs: {
       eyebrow: 'OUR DIFFERENCE',
       title: 'Your virtual technical expert.',
-      subtitle: 'Unlike generic ChatGPT, CloserAi knows your company by heart.',
+      subtitle: 'Unlike generic ChatGPT, CloserAI knows your company by heart.',
       items: {
         training: {
           title: 'Custom Training',
@@ -298,7 +325,7 @@ const translations = {
         ]
       },
       closer: {
-        label: 'With CloserAi',
+        label: 'With CloserAI',
         score: '58',
         optimized: 'AI Optimized',
         items: [
@@ -348,8 +375,12 @@ const translations = {
     faq: {
       eyebrow: 'FAQ',
       title: 'Frequently asked questions',
-      subtitle: 'Everything you need to know about CloserAi',
+      subtitle: 'Everything you need to know about CloserAI',
       items: [
+        {
+          q: "How does the money-back guarantee work?",
+          a: "If the first generated proposal does not suit you, we will refund you in full, no questions asked."
+        },
         {
           q: "How does the AI learn my writing style?",
           a: "You provide us with 10 to 20 technical proposals written by your experts. Our model analyzes your vocabulary, phrasing, and response structure to faithfully reproduce your professional tone."
@@ -365,30 +396,53 @@ const translations = {
         {
           q: "How long does it take to generate a proposal?",
           a: "Between 5 and 15 minutes depending on the complexity of the specifications. You upload the requirements, specify the concerned lots, and the AI produces a structured document ready to be finalized."
-        },
-        {
-          q: "Is the Founder offer really for life?",
-          a: "Yes, one-time payment of €997 = permanent access. No monthly subscription. All future updates included."
         }
       ]
     },
     // Booking
     booking: {
       eyebrow: 'BOOK A DEMO',
-      title: 'See CloserAi in action',
+      title: 'See CloserAI in action',
       subtitle: 'Schedule a 30-minute personalized demonstration.',
+      back: 'Back',
+      backToHome: "Back to home",
+      action: "TAKE ACTION",
+      titlePart1: "Ready for a",
+      titlePart2: "free demo?",
+      subtitle2: "Fill out this form to receive your personalized audit.",
+      features: {
+        audit: "Free audit of your current proposals",
+        demo: "Live demo on your data",
+        access: "Priority access to the program"
+      },
       form: {
         name: 'Full name',
+        firstname: 'First name',
+        firstnamePlaceholder: 'Your first name',
+        lastname: 'Last name',
+        lastnamePlaceholder: 'Your last name',
         email: 'Professional email',
+        emailPlaceholder: 'your@email.com',
         company: 'Company',
+        companyPlaceholder: 'Company name',
+        size: "Company size",
+        sizeOptions: {
+          small: "1-10 employees",
+          medium: "11-50 employees",
+          large: "+50 employees"
+        },
         phone: 'Phone',
+        phonePlaceholder: '0612345678',
         message: 'Tell us about your needs',
+        messageLabel: 'Message (Optional)',
+        messagePlaceholder: 'Tell us about your current needs...',
         submit: 'Book my demo',
+        submitButton: 'Send request',
         sending: 'Sending...',
         success: 'Request sent!',
-        successMessage: 'We will contact you within 24 hours to schedule a time.',
+        successMessage: 'Thanks! Our team has received your request. We will get back to you within 24 hours to schedule your demo.',
         error: 'Sending error',
-        errorMessage: 'An error occurred. Try again or contact us directly.'
+        errorMessage: 'An error occurred. Check your connection or try again later.'
       }
     },
     // Footer
@@ -1867,6 +1921,7 @@ const Navbar = memo(({ setView }) => {
 // ==============================================
 
 const DemoView = memo(({ onBack }) => {
+  const { t } = useTranslation();
   useEffect(() => { window.scrollTo(0, 0); }, []);
   
   const form = useRef();
@@ -1909,12 +1964,12 @@ const DemoView = memo(({ onBack }) => {
           <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
             <CheckCircle className="w-10 h-10 text-emerald-400" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-4">Demande Envoyée !</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">{t('booking.form.success')}</h2>
           <p className="text-slate-400 mb-8 leading-relaxed">
-            Merci ! Notre équipe a bien reçu votre demande. Nous revenons vers vous sous 24h pour planifier votre démo.
+            {t('booking.form.successMessage')}
           </p>
           <button onClick={onBack} className="w-full py-4 bg-white text-slate-950 font-bold rounded-xl hover:bg-slate-200 transition-colors">
-            Retour à l'accueil
+            {t('booking.backToHome')}
           </button>
         </motion.div>
       </section>
@@ -1936,7 +1991,7 @@ const DemoView = memo(({ onBack }) => {
           <div className="p-1.5 rounded-full bg-white/5 group-hover:bg-indigo-500/10 transition-all group-hover:-translate-x-1">
             <ArrowLeft size={16} />
           </div>
-          Retour
+          {t('booking.back')}
         </motion.button>
 
         <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl mx-auto grid lg:grid-cols-12 gap-12 items-start">
@@ -1944,20 +1999,20 @@ const DemoView = memo(({ onBack }) => {
             <motion.div variants={item}>
                <div className="flex items-center gap-2 mb-6">
                   <span className="h-px w-8 bg-indigo-500/50"></span>
-                  <span className="text-indigo-400 text-[10px] font-bold uppercase tracking-[0.3em]">PASSEZ À L'ACTION</span>
+                  <span className="text-indigo-400 text-[10px] font-bold uppercase tracking-[0.3em]">{t('booking.action')}</span>
                </div>
                <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-                 Prêt à bénéficier d’une <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-white">démonstration gratuite ?</span>
+                 {t('booking.titlePart1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-white">{t('booking.titlePart2')}</span>
                </h1>
                <p className="text-slate-400 text-lg leading-relaxed">
-                 Remplissez ce formulaire pour recevoir votre audit personnalisé.
+                 {t('booking.subtitle2')}
                </p>
             </motion.div>
             <motion.div variants={item} className="space-y-4">
               {[
-                { text: "Audit gratuit de vos mémoires actuels", icon: FileText },
-                { text: "Démonstration live sur vos données", icon: PlayCircle },
-                { text: "Accès prioritaire au programme", icon: Star }
+                { text: t('booking.features.audit'), icon: FileText },
+                { text: t('booking.features.demo'), icon: PlayCircle },
+                { text: t('booking.features.access'), icon: Star }
               ].map((feat, i) => (
                 <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5">
                   <div className="p-2 bg-indigo-500/20 text-indigo-400 rounded-lg"><feat.icon size={18} /></div>
@@ -1972,55 +2027,55 @@ const DemoView = memo(({ onBack }) => {
               <SpotlightCard className="p-8 md:p-10 !bg-[#0B101B]/80 shadow-2xl shadow-black/50" spotlightColor="rgba(99, 102, 241, 0.15)">
                 <form ref={form} onSubmit={sendEmail} className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Société</label>
-                    <input required name="company" type="text" placeholder="Nom de votre société" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.company')}</label>
+                    <input required name="company" type="text" placeholder={t('booking.form.companyPlaceholder')} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Taille d'entreprise</label>
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.size')}</label>
                     <div className="relative">
                       <select name="company_size" className="w-full appearance-none bg-[#0B101B] border border-white/10 rounded-xl px-4 py-3.5 text-white focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium cursor-pointer">
-                        <option value="1-10">1-10 employés</option>
-                        <option value="11-50">11-50 employés</option>
-                        <option value="50+">+50 employés</option>
+                        <option value="1-10">{t('booking.form.sizeOptions.small')}</option>
+                        <option value="11-50">{t('booking.form.sizeOptions.medium')}</option>
+                        <option value="50+">{t('booking.form.sizeOptions.large')}</option>
                       </select>
                       <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 rotate-90 pointer-events-none" size={16} />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Prénom</label>
-                    <input required name="firstname" type="text" placeholder="Votre prénom" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.firstname')}</label>
+                    <input required name="firstname" type="text" placeholder={t('booking.form.firstnamePlaceholder')} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Nom</label>
-                    <input required name="lastname" type="text" placeholder="Votre nom" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.lastname')}</label>
+                    <input required name="lastname" type="text" placeholder={t('booking.form.lastnamePlaceholder')} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Adresse e-mail <span className="text-indigo-400">*</span></label>
-                    <input required name="email" type="email" placeholder="votre@email.com" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.email')} <span className="text-indigo-400">*</span></label>
+                    <input required name="email" type="email" placeholder={t('booking.form.emailPlaceholder')} className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
                   </div>
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Téléphone</label>
-                    <input required name="phone" type="tel" placeholder="0612345678" onInput={handlePhoneInput} onKeyPress={handlePhoneKeyPress} pattern="[0-9]*" inputMode="numeric" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.phone')}</label>
+                    <input required name="phone" type="tel" placeholder={t('booking.form.phonePlaceholder')} onInput={handlePhoneInput} onKeyPress={handlePhoneKeyPress} pattern="[0-9]*" inputMode="numeric" className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium" />
                   </div>
                   <div className="md:col-span-2 space-y-2">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">Message (Optionnel)</label>
-                    <textarea name="message" placeholder="Parlez-nous de vos besoins actuels..." className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium resize-none"></textarea>
+                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider ml-1">{t('booking.form.messageLabel')}</label>
+                    <textarea name="message" placeholder={t('booking.form.messagePlaceholder')} className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder:text-slate-600 focus:border-indigo-500/50 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/50 transition-all outline-none text-sm font-medium resize-none"></textarea>
                   </div>
                   {status === 'error' && (
                     <div className="md:col-span-2 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3">
                         <XCircle className="text-red-400 shrink-0" size={20} />
-                        <p className="text-red-200 text-sm">Une erreur est survenue. Vérifiez votre connexion ou réessayez plus tard.</p>
+                        <p className="text-red-200 text-sm">{t('booking.form.errorMessage')}</p>
                     </div>
                   )}
                   <div className="md:col-span-2 pt-4">
                     <button disabled={status === 'sending'} type="submit" className="w-full group relative flex items-center justify-center gap-3 px-8 py-4 bg-white text-slate-950 font-bold rounded-xl overflow-hidden shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.5)] hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">
                       {status === 'sending' ? (
-                         <><Loader2 className="animate-spin" /> Envoi en cours...</>
+                         <><Loader2 className="animate-spin" /> {t('booking.form.sending')}</>
                       ) : (
                          <>
                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_auto] animate-background-shine" />
                            <span className="relative flex items-center gap-2 z-10 text-sm uppercase tracking-wide">
-                             Envoyer la demande <ArrowRight size={16} className="text-indigo-600" />
+                             {t('booking.form.submitButton')} <ArrowRight size={16} className="text-indigo-600" />
                            </span>
                          </>
                       )}
