@@ -137,11 +137,10 @@ const translations = {
       founder: {
         label: 'Pack Fondateur',
         badge: 'Offre Limitée',
-        price: '997€',
-        payment: 'Paiement',
-        unique: 'Unique',
+        price: 'Sur Mesure',
+        customText: 'Contactez-nous pour une offre adaptée à vos besoins.',
         guarantee: 'Satisfait ou Remboursé 30j',
-        cta: 'Sécuriser ma place',
+        cta: 'DEMANDER MON DEVIS',
         invoice: 'Facture avec TVA disponible immédiatement',
         features: [
           'Accès à vie sans abonnement',
@@ -349,11 +348,10 @@ const translations = {
       founder: {
         label: 'Founder Pack',
         badge: 'Limited Offer',
-        price: '997€',
-        payment: 'One-time',
-        unique: 'Payment',
+        price: 'Custom',
+        customText: 'Contact us for an offer tailored to your needs.',
         guarantee: '30-day Money-back Guarantee',
-        cta: 'Secure my spot',
+        cta: 'REQUEST MY QUOTE',
         invoice: 'VAT invoice available immediately',
         features: [
           'Lifetime access without subscription',
@@ -1354,7 +1352,7 @@ const Comparison = memo(() => {
   );
 });
 
-const Pricing = memo(() => {
+const Pricing = memo(({ setView }) => {
   const { t } = useTranslation();
   const founderFeatures = useMemo(() => t('pricing.founder.features'), [t]);
 
@@ -1404,12 +1402,9 @@ const Pricing = memo(() => {
 
               {/* 2. Hierarchy Typographique */}
               <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">{t('pricing.founder.label')}</h3>
-              <div className="flex items-baseline justify-center gap-2 mb-8 relative">
-                <span className="text-7xl font-black text-white tracking-tighter drop-shadow-2xl">{t('pricing.founder.price')}</span>
-                <div className="flex flex-col items-start">
-                   <span className="text-slate-500 text-[10px] font-bold uppercase leading-tight">{t('pricing.founder.payment')}</span>
-                   <span className="text-slate-500 text-[10px] font-bold uppercase leading-tight">{t('pricing.founder.unique')}</span>
-                </div>
+              <div className="flex flex-col items-center justify-center mb-8 relative">
+                <span className="text-7xl font-black text-white tracking-tighter drop-shadow-2xl mb-3">{t('pricing.founder.price')}</span>
+                <span className="text-slate-400 text-sm font-medium text-center leading-relaxed">{t('pricing.founder.customText')}</span>
               </div>
               
               {/* 3. Zone Garantie */}
@@ -1420,9 +1415,17 @@ const Pricing = memo(() => {
               
               {/* CTA */}
               <div className="w-full mb-10">
-                <PrimaryButton href="https://buy.stripe.com/3cI14pgHX9Uxd0q13k6g800" icon={Lock}>
-                    {t('pricing.founder.cta')}
-                </PrimaryButton>
+                <motion.button
+                  onClick={() => setView && setView('demo')}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="relative group inline-flex items-center justify-center gap-3 w-full px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl overflow-hidden shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.5)] transform-gpu"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 via-white to-indigo-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[length:200%_auto] animate-background-shine" />
+                  <span className="relative flex items-center gap-2 z-10 text-sm uppercase tracking-wide">
+                    {t('pricing.founder.cta')} <ArrowRight size={16} className="text-indigo-600" />
+                  </span>
+                </motion.button>
                 <p className="text-[10px] text-slate-500 mt-3 font-medium">{t('pricing.founder.invoice')}</p>
               </div>
 
@@ -2122,7 +2125,7 @@ function AppContent() {
             <Features />
             <Comparison />
             <WhyUs />
-            <Pricing />
+            <Pricing setView={setCurrentView} />
             <FAQ />
             <BookingWidget setView={setCurrentView} />
           </>
