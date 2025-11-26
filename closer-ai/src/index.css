@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* OPTIMISATION PERFORMANCE WINDOWS */
+html {
+  scroll-behavior: smooth;
+  /* Évite le repaint complet lors du scroll */
+  overflow-x: hidden; 
+}
+
+body {
+  /* Force l'accélération matérielle sur tout le body */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Lissage des polices optimisé */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimisation des flous énormes qui tuent Windows */
+.blur-[120px], .blur-[100px] {
+  /* Réduit la qualité du flou pour gagner des FPS, quasi invisible à l'oeil nu */
+  transform: translate3d(0,0,0);
+  will-change: transform;
+}
+
+/* Optimisation de l'effet de bruit (noise) */
+.mix-blend-overlay {
+  /* Important: sort l'élément du flux de peinture principal */
+  will-change: opacity;
+  pointer-events: none;
+}
+
+@keyframes background-shine {
+  from { background-position: 0 0; }
+  to { background-position: -200% 0; }
+}
+.animate-background-shine { 
+  animation: background-shine 3s linear infinite;
+  /* Force le GPU pour cette animation */
+  will-change: background-position; 
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}

@@ -2139,7 +2139,8 @@ function AppContent() {
 
       <Footer setView={setCurrentView} />
       
-      <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+      {/* Code optimisé : Pas de mix-blend-mode, juste de l'opacité */}
+      <div className="fixed inset-0 z-[50] pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
     </div>
   );
 }
